@@ -37,16 +37,26 @@ Static output is in `dist/` — serve with any static host (SPA: rewrite all rou
 
 ## Deploy on Render
 
-1. Push this repo to GitHub (see below).
-2. [Render Dashboard](https://dashboard.render.com/) → **New** → **Static Site**.
-3. Connect the GitHub repo.
-4. Render reads `render.yaml` automatically, or set manually:
-   - **Build command:** `npm ci && npm run build:web`
-   - **Publish directory:** `dist`
-5. Add rewrite rule: `/*` → `/index.html` (for Expo Router client routes).
-6. Deploy.
+### Option A — Static Site (recommended)
 
-Environment variables (optional — defaults point to production):
+1. [Render Dashboard](https://dashboard.render.com/) → **New** → **Blueprint**
+2. Connect **Mabena119/mobiindicator-web**
+3. Render applies `render.yaml` automatically (`runtime: static`, publish `dist/`)
+
+### Option B — Web Service
+
+If you already created a **Web Service**, set in the Render dashboard:
+
+| Setting | Value |
+|---------|--------|
+| **Build Command** | `npm ci && npm run build` |
+| **Start Command** | `npm start` |
+
+Do **not** use `node expo-router/entry` — that is the native app entry, not the web export.
+
+`npm start` runs `serve dist` (SPA mode) on `$PORT`.
+
+### Environment (optional)
 
 | Variable | Default |
 |----------|---------|

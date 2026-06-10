@@ -1,10 +1,15 @@
-# Render static site — MobiIndicator iOS web app (Add to Home Screen)
+# Render — MobiIndicator iOS web app (Add to Home Screen)
 # https://render.com/docs/static-sites
+#
+# Option A (recommended): Static Site from Blueprint — uses the block below.
+# Option B: Web Service — set Build Command: npm ci && npm run build
+#            Start Command: npm start  (serves dist/ via serve)
+
 services:
   - type: web
     name: mobiindicator-web
     runtime: static
-    buildCommand: npm ci && npm run build:web
+    buildCommand: npm ci && npm run build
     staticPublishPath: dist
     envVars:
       - key: EXPO_PUBLIC_API_BASE

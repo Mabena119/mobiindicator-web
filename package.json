@@ -2,13 +2,16 @@
   "name": "mobiindicator-app",
   "version": "1.0.0",
   "main": "expo-router/entry",
+  "private": true,
   "scripts": {
-    "start": "expo start",
+    "dev": "expo start",
+    "start": "node scripts/render-start.mjs",
+    "build": "expo export --platform web",
+    "build:web": "expo export --platform web",
     "ios": "expo run:ios",
     "ios:sim": "expo start --ios",
     "android": "expo run:android",
     "web": "expo start --web",
-    "build:web": "expo export --platform web",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
@@ -28,13 +31,13 @@
     "react-native-svg": "15.15.4",
     "react-native-web": "^0.21.2",
     "react-native-webview": "13.16.0",
-    "react-native-worklets": "0.8.3"
+    "react-native-worklets": "0.8.3",
+    "serve": "^14.2.6"
   },
   "devDependencies": {
     "@types/react": "~19.2.2",
     "typescript": "~6.0.3"
   },
-  "private": true,
   "engines": {
     "node": ">=20"
   }
