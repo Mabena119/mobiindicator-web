@@ -7,7 +7,9 @@ import { radii, spacing } from "../theme";
 
 function createHomeStyles(colors: ThemeColors, shadow: ThemeShadow, isDark: boolean) {
   return StyleSheet.create({
+    screen: { flex: 1, backgroundColor: colors.bg },
     safe: { flex: 1, backgroundColor: colors.bg },
+    list: { flex: 1, backgroundColor: colors.bg },
     center: { flex: 1, alignItems: "center", justifyContent: "center", backgroundColor: colors.bg },
     header: {
       flexDirection: "row",

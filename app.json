@@ -25,10 +25,13 @@
     "android": {
       "package": "com.mobiindicator.app",
       "adaptiveIcon": {
-        "backgroundColor": "#050508",
+        "backgroundColor": "#ffffff",
         "foregroundImage": "./assets/android-icon-foreground.png",
-        "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "navigationBar": {
+        "backgroundColor": "#050508",
+        "barStyle": "light-content"
       },
       "predictiveBackGestureEnabled": false
     },
@@ -44,7 +47,22 @@
       "display": "standalone",
       "orientation": "default"
     },
-    "plugins": ["expo-router", "expo-secure-store"],
+    "plugins": [
+      "expo-router",
+      "expo-secure-store",
+      [
+        "expo-system-ui",
+        {
+          "backgroundColor": "#eef2f7"
+        }
+      ],
+      [
+        "expo-navigation-bar",
+        {
+          "enforceContrast": false
+        }
+      ]
+    ],
     "experiments": {
       "typedRoutes": true
     },

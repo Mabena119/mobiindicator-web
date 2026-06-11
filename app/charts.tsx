@@ -8,6 +8,7 @@ import {
   Text,
   View,
 } from "react-native";
+import Svg, { Path } from "react-native-svg";
 
 import { refreshCharts } from "../src/api";
 import { filterChartsForKey } from "../src/chartFilter";
@@ -75,15 +76,48 @@ export default function ChartsScreen() {
     load().finally(() => setLoading(false));
   }, [code, load]);
 
+  const onRefresh = useCallback(async () => {
+    setRefreshing(true);
+    await load();
+    setRefreshing(false);
+  }, [load]);
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <Pressable onPress={() => router.replace("/home")}>
-          <Text style={styles.headerAction}>Mentor indicators</Text>
+        <Pressable
+          onPress={() => void onRefresh()}
+          disabled={refreshing}
+          accessibilityRole="button"
+          accessibilityLabel="Refresh live charts"
+          style={({ pressed }) => [
+            styles.headerRefreshBtn,
+            pressed && !refreshing && styles.headerRefreshPressed,
+          ]}
+        >
+          {refreshing ? (
+            <ActivityIndicator size="small" color={colors.accent} />
+          ) : (
+            <Svg width={20} height={20} viewBox="0 0 24 24" fill="none">
+              <Path
+                d="M21 12a9 9 0 1 1-2.64-6.36"
+                stroke={colors.accent}
+                strokeWidth={2}
+                strokeLinecap="round"
+              />
+              <Path
+                d="M21 3v6h-6"
+                stroke={colors.accent}
+                strokeWidth={2}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </Svg>
+          )}
         </Pressable>
       ),
     });
-  }, [navigation, styles.headerAction]);
+  }, [navigation, styles.headerRefreshBtn, styles.headerRefreshPressed, colors.accent, onRefresh, refreshing]);
 
   const charts = useMemo(() => {
     if (live.connected) {
@@ -92,21 +126,18 @@ export default function ChartsScreen() {
     return filterChartsForKey(session?.charts ?? [], code, session?.feed_code ?? null);
   }, [live.connected, live.charts, session?.charts, session?.feed_code, code]);
 
-  async function onRefresh() {
-    setRefreshing(true);
-    await load();
-    setRefreshing(false);
-  }
-
   if (loading && !session) {
     return (
-      <View style={styles.center}>
-        <ActivityIndicator color={colors.accent} />
+      <View style={styles.screen}>
+        <View style={styles.center}>
+          <ActivityIndicator color={colors.accent} />
+        </View>
       </View>
     );
   }
 
   return (
+    <View style={styles.screen}>
     <View style={styles.container}>
       <View style={styles.banner}>
         <View style={{ flex: 1, gap: 4 }}>
@@ -140,6 +171,7 @@ export default function ChartsScreen() {
       <FlatList
         data={charts}
         keyExtractor={(item) => item.feed_key}
+        style={styles.list}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={charts.length === 0 ? styles.emptyList : styles.listContent}
         refreshControl={
@@ -175,6 +207,7 @@ export default function ChartsScreen() {
           />
         )}
       />
+    </View>
     </View>
   );
 }

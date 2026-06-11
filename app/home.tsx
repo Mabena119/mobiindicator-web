@@ -236,14 +236,17 @@ export default function IndicatorsHomeScreen() {
 
   if (!memberReady || loading) {
     return (
-      <View style={styles.center}>
-        <ActivityIndicator color={colors.accent} />
+      <View style={styles.screen}>
+        <View style={styles.center}>
+          <ActivityIndicator color={colors.accent} />
+        </View>
       </View>
     );
   }
 
   return (
-    <SafeAreaView style={styles.safe}>
+    <View style={styles.screen}>
+    <SafeAreaView style={styles.safe} edges={["top", "left", "right"]}>
       <View style={styles.header}>
         <Image source={LOGO_ICON} style={styles.logo} accessibilityLabel="MobiIndicator" />
         <View style={styles.headerTop}>
@@ -260,6 +263,7 @@ export default function IndicatorsHomeScreen() {
       <FlatList
         data={licenses}
         keyExtractor={(item) => item.code}
+        style={styles.list}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={
           licenses.length === 0 ? styles.emptyList : styles.listContent
@@ -387,6 +391,7 @@ export default function IndicatorsHomeScreen() {
         </View>
       </Modal>
     </SafeAreaView>
+    </View>
   );
 }
 

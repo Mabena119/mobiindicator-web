@@ -1,9 +1,12 @@
 import { Stack } from "expo-router";
+import { NavigationBar } from "expo-navigation-bar";
 import { StatusBar } from "expo-status-bar";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { StyleSheet, View } from "react-native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import { ThemeProvider, useAppTheme } from "../src/ThemeContext";
+import { useSystemChrome } from "../src/useSystemChrome";
 
 function AppNavigation() {
   const { colors, isDark } = useAppTheme();
@@ -32,17 +35,21 @@ function AppNavigation() {
 export default function RootLayout() {
   return (
     <GestureHandlerRootView style={styles.root}>
-      <ThemeProvider>
-        <ThemedRoot />
-      </ThemeProvider>
+      <SafeAreaProvider>
+        <ThemeProvider>
+          <ThemedRoot />
+        </ThemeProvider>
+      </SafeAreaProvider>
     </GestureHandlerRootView>
   );
 }
 
 function ThemedRoot() {
-  const { colors } = useAppTheme();
+  const { colors, isDark } = useAppTheme();
+  useSystemChrome(colors.bg);
   return (
     <View style={[styles.root, { backgroundColor: colors.bg }]}>
+      <NavigationBar style={isDark ? "dark" : "light"} />
       <AppNavigation />
     </View>
   );

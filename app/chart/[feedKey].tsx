@@ -17,6 +17,10 @@ export default function ChartDetailScreen() {
           flex: 1,
           backgroundColor: colors.bg,
         },
+        screen: {
+          flex: 1,
+          backgroundColor: colors.bg,
+        },
         center: {
           flex: 1,
           alignItems: "center",
@@ -124,7 +128,8 @@ export default function ChartDetailScreen() {
   }
 
   return (
-    <View style={[styles.container, { paddingBottom: Math.max(insets.bottom, spacing.sm) }]}>
+    <View style={styles.screen}>
+      <View style={{ flex: 1, paddingBottom: Math.max(insets.bottom, spacing.sm) }}>
       <View style={styles.topBar}>
         <View style={styles.topBarText}>
           {indicatorName ? (
@@ -141,6 +146,7 @@ export default function ChartDetailScreen() {
       </View>
       <View style={styles.chartFrame}>
         <ChartWebView code={code} feedKey={feedKey} streamCode={streamCode} fill />
+      </View>
       </View>
     </View>
   );

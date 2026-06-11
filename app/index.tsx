@@ -130,14 +130,17 @@ export default function WelcomeScreen() {
 
   if (checking) {
     return (
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center", backgroundColor: colors.bg }}>
-        <ActivityIndicator color={colors.accent} />
+      <View style={{ flex: 1, backgroundColor: colors.bg }}>
+        <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+          <ActivityIndicator color={colors.accent} />
+        </View>
       </View>
     );
   }
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: colors.bg }}>
+    <View style={{ flex: 1, backgroundColor: colors.bg }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: colors.bg }} edges={["top", "left", "right"]}>
       <View style={{ flexDirection: "row", justifyContent: "flex-end", padding: spacing.md }}>
         <ThemeToggle compact />
       </View>
@@ -253,5 +256,6 @@ export default function WelcomeScreen() {
         ]}
       />
     </SafeAreaView>
+    </View>
   );
 }

@@ -7,7 +7,9 @@ import { radii, spacing } from "../theme";
 
 function createChartsStyles(colors: ThemeColors, shadow: ThemeShadow) {
   return StyleSheet.create({
+    screen: { flex: 1, backgroundColor: colors.bg },
     container: { flex: 1, backgroundColor: colors.bg },
+    list: { flex: 1, backgroundColor: colors.bg },
     center: { flex: 1, alignItems: "center", justifyContent: "center", backgroundColor: colors.bg },
     banner: {
       flexDirection: "row",
@@ -41,7 +43,14 @@ function createChartsStyles(colors: ThemeColors, shadow: ThemeShadow) {
     emptyTitle: { color: colors.text, fontSize: 18, fontWeight: "700" },
     emptyBody: { color: colors.muted, lineHeight: 22 },
     chevron: { color: colors.muted, fontSize: 28, lineHeight: 28 },
-    headerAction: { color: colors.accent, fontWeight: "600", fontSize: 15 },
+    headerRefreshBtn: {
+      width: 36,
+      height: 36,
+      alignItems: "center",
+      justifyContent: "center",
+      marginRight: 4,
+    },
+    headerRefreshPressed: { opacity: 0.65 },
   });
 }
 
